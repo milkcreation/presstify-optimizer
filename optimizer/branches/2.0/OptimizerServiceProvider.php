@@ -33,7 +33,7 @@ class OptimizerServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->getContainer()->share('optimizer', function () {
-            return new Optimizer($this->getContainer());
+            return new Optimizer(config('optimizer', []), $this->getContainer());
         });
     }
 }

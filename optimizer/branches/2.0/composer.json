@@ -25,7 +25,8 @@
   ],
   "require": {
     "composer/installers": "~1.0",
-    "presstify/framework": ">=1.4"
+    "presstify/framework": ">=1.4",
+    "rosell-dk/webp-convert": "^2.3"
   },
   "autoload": {
     "psr-4": {

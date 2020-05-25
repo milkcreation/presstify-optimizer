@@ -2,8 +2,10 @@
 
 namespace tiFy\Plugins\Optimizer;
 
+use Exception;
 use Psr\Container\ContainerInterface as Container;
 use tiFy\Plugins\Optimizer\Contracts\Optimizer as OptimizerContract;
+use tiFy\Support\ParamsBag;
 
 /**
  * @desc Extension PresstiFy de recherche avancée.
@@ -35,10 +37,22 @@ use tiFy\Plugins\Optimizer\Contracts\Optimizer as OptimizerContract;
 class Optimizer implements OptimizerContract
 {
     /**
+     * Instance de l'extension de gestion d'optimisation de site.
+     * @var OptimizerContract|null
+     */
+    protected static $instance;
+
+    /**
      * Indicateur d'initialisation.
      * @var bool
      */
     protected $booted = false;
+
+    /**
+     * Instance de la configuration associée.
+     * @var ParamsBag|null
+     */
+    protected $config;
 
     /**
      * Instance du conteneur d'injection de dépendances.
@@ -49,13 +63,34 @@ class Optimizer implements OptimizerContract
     /**
      * CONSTRUCTEUR.
      *
+     * @param array $config
      * @param Container|null $container
      *
      * @return void
      */
-    public function __construct(?Container $container = null)
+    public function __construct(array $config = [], ?Container $container = null)
     {
-        $this->container = $container;
+        $this->setConfig($config);
+
+        if (!is_null($container)) {
+            $this->setContainer($container);
+        }
+
+        if (!self::$instance instanceof OptimizerContract) {
+            self::$instance = $this;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function instance(): OptimizerContract
+    {
+        if (self::$instance instanceof self) {
+            return self::$instance;
+        }
+
+        throw new Exception(__('Impossible de récupérer l\'instance du gestionnaire d\'optimisation.', 'tify'));
     }
 
     /**
@@ -70,13 +105,17 @@ class Optimizer implements OptimizerContract
                     return $attr;
                 } elseif (!isset($attr['src'])) {
                     return $attr;
-                } elseif (!in_array($size, ['archive', 'banner'])) {
-                    return $attr;
+                }
+
+                if ($sizes = $this->config('defer.img.sizes', [])) {
+                    if (!in_array($size, array_keys($sizes))) {
+                        return $attr;
+                    }
                 }
 
                 $attr['data-src'] = $attr['src'];
                 $attr['data-srcset'] = $attr['srcset'] ?? '';
-                $attr['src'] = get_template_directory_uri() . "/dist/images/holder/{$size}.webp";
+                $attr['src'] = $sizes[$size]['placeholder'] ?? '';
                 $attr['srcset'] = '';
 
                 return $attr;
@@ -106,8 +145,56 @@ class Optimizer implements OptimizerContract
     /**
      * @inheritDoc
      */
+    public function config($key = null, $default = null)
+    {
+        if (is_null($this->config)) {
+            $this->config = new ParamsBag();
+        }
+
+        if (is_string($key)) {
+            return $this->config->get($key, $default);
+        } elseif (is_array($key)) {
+            return $this->config->set($key);
+        } else {
+            return $this->config;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getContainer(): ?Container
     {
         return $this->container;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function resources($path = ''): string
+    {
+        $path = $path ? '/' . ltrim($path, '/') : '';
+
+        return file_exists(__DIR__ . "/Resources{$path}") ? __DIR__ . "/Resources{$path}" : '';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setConfig(array $attrs): OptimizerContract
+    {
+        $this->config($attrs);
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setContainer(Container $container): OptimizerContract
+    {
+        $this->container = $container;
+
+        return $this;
     }
 }
