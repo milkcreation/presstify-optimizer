@@ -11,7 +11,7 @@ use tiFy\Support\ParamsBag;
  * @desc Extension PresstiFy de recherche avancée.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\Optimizer
- * @version 2.0.0
+ * @version 2.0.1
  *
  * USAGE :
  * Activation
@@ -105,12 +105,10 @@ class Optimizer implements OptimizerContract
                     return $attr;
                 } elseif (!isset($attr['src'])) {
                     return $attr;
-                }
-
-                if ($sizes = $this->config('defer.img.sizes', [])) {
-                    if (!in_array($size, array_keys($sizes))) {
-                        return $attr;
-                    }
+                } elseif (!$sizes = $this->config('defer.img.sizes')) {
+                    return $attr;
+                } elseif (!in_array($size, array_keys($sizes))) {
+                    return $attr;
                 }
 
                 $attr['data-src'] = $attr['src'];
