@@ -8,7 +8,7 @@
     "search"
   ],
   "homepage": "https://svn.tigreblanc.fr/presstify-plugins/optimizer",
-  "time": "2020-05-25",
+  "time": "2020-09-15",
   "license": "proprietary",
   "authors": [
     {
@@ -38,7 +38,6 @@
   "config": {
     "optimize-autoloader": true,
     "preferred-install": "dist",
-    "secure-http": false,
     "sort-packages": true
   }
 }
