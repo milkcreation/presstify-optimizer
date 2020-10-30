@@ -5,10 +5,10 @@
   "keywords": [
     "presstify",
     "plugins",
-    "search"
+    "optimizer"
   ],
-  "homepage": "https://svn.tigreblanc.fr/presstify-plugins/optimizer",
-  "time": "2020-09-15",
+  "homepage": "https://svn.tigreblanc.fr/presstify-plugins/optimizer/",
+  "time": "2020-10-30",
   "license": "proprietary",
   "authors": [
     {
