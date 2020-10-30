@@ -11,7 +11,7 @@ use tiFy\Support\ParamsBag;
  * @desc Extension PresstiFy de recherche avancée.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\Optimizer
- * @version 2.0.1
+ * @version 2.0.2
  *
  * USAGE :
  * Activation
@@ -130,7 +130,7 @@ class Optimizer implements OptimizerContract
                     return $url;
                 }
 
-                return str_replace(' src', ' async src', $url);
+                return str_replace(' src', ' defer src', $url);
             });
             /**/
 
