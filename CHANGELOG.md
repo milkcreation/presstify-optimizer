@@ -1,5 +1,12 @@
 # Release Notes
 
+## [v2.0.3 (2020-11-22)](https://svn.tigreblanc.fr/presstify-plugins/optimizer/tags/2.0.3...v2.0.3)
+
+### Changed
+
+- Chargement wp.booted
+- Modification du script de vhargement des images
+
 ## [v2.0.2 (2020-10-30)](https://svn.tigreblanc.fr/presstify-plugins/optimizer/tags/2.0.2...v2.0.2)
 
 ### Fixed
