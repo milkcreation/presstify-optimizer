@@ -11,7 +11,7 @@ use tiFy\Support\ParamsBag;
  * @desc Extension PresstiFy de recherche avancée.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\Optimizer
- * @version 2.0.2
+ * @version 2.0.3
  *
  * USAGE :
  * Activation
@@ -90,7 +90,7 @@ class Optimizer implements OptimizerContract
             return self::$instance;
         }
 
-        throw new Exception(__('Impossible de récupérer l\'instance du gestionnaire d\'optimisation.', 'tify'));
+        throw new Exception(sprintf('Unavailable %s instance', __CLASS__));
     }
 
     /**
