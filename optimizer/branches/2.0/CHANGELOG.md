@@ -1,5 +1,11 @@
 # Release Notes
 
+## [v2.0.4 (2020-11-23)](https://svn.tigreblanc.fr/presstify-plugins/optimizer/tags/2.0.4...v2.0.4)
+
+### Fixed
+
+- Correctif defer wp-login.php
+
 ## [v2.0.3 (2020-11-22)](https://svn.tigreblanc.fr/presstify-plugins/optimizer/tags/2.0.3...v2.0.3)
 
 ### Changed
