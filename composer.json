@@ -7,20 +7,13 @@
     "plugins",
     "optimizer"
   ],
-  "homepage": "https://svn.tigreblanc.fr/presstify-plugins/optimizer/",
-  "time": "2020-11-23",
-  "license": "proprietary",
+  "homepage": "https://github.com/milkcreation/presstify-optimizer.git",
+  "time": "2021-09-14",
   "authors": [
     {
       "name": "Jordy Manner",
       "email": "jordy.manner@milkcreation.fr",
       "role": "Developper"
-    }
-  ],
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://composer.tigreblanc.fr/presstify/"
     }
   ],
   "require": {
